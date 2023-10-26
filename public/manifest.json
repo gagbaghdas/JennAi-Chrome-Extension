@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Jenna Ai",
+  "name": "Jenna Ai - Your GD Assistant",
   "icons": {
     "16": "logo192.png",
     "48": "logo192.png",
@@ -16,5 +16,19 @@
       "128": "logo512.png"
     }
   },
-  "permissions": ["storage", "activeTab", "scripting"]
+  "host_permissions": [
+   "*://*/*"
+  ],
+  "permissions": ["storage", "activeTab", "scripting","cookies" ],
+  "content_scripts": [
+    {
+      "matches": ["*://docs.google.com/*", "*://*.atlassian.net/*"],
+      "js": ["scripts/contentScript.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "background": {
+    "service_worker": "scripts/background.js",
+    "type": "module"
+  }
 }
