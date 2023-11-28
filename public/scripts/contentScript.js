@@ -11,7 +11,6 @@ function CheckAuthentication (){
 }
 
 CheckAuthentication ();
-console.log('hrome.runtime.onMessage listener'); 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if (request.message === 'checkAuthentication') {
     console.log('checkAuthentication from listener');
@@ -54,3 +53,19 @@ function RemoveButtons(){
     bottomButton.remove();
   }
 }
+
+// // Check for any previous instances of the extension and remove them
+// const existingApp = document.getElementById('my-extension-root');
+// if (existingApp) existingApp.remove();
+
+// // Create a new div element to mount your React app
+// const appRoot = document.createElement('div');
+// appRoot.id = 'my-extension-root';
+// document.body.appendChild(appRoot);
+
+// // Inject your bundled React script into the page
+// const script = document.createElement('script');
+// script.src = chrome.runtime.getURL('static/js/main.js');  // assuming your bundled script is named main.js
+// document.head.appendChild(script);
+
+

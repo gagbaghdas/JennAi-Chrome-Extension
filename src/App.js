@@ -1,7 +1,8 @@
 import React from 'react';
-import Button from '@mui/material/Button';
 import { isAuthenticated } from './Utils';
 import { useEffect } from 'react';
+import ChatWindow from './components/ChatWindow';
+import Login from './components/Login';
 
 // Assuming this is your main component for the extension
 const MainComponent = () => {
@@ -13,23 +14,19 @@ const MainComponent = () => {
       setAuth(result);
     });
   }, []);
-  const loginPageUrl = process.env.REACT_APP_URL + "/login";
   return (
-    <div>
+    <div style={{ width: '300px', height: '200px' }}>
       {!auth ? (
-        <Button
-          variant="contained"
-          color="primary"
-          style={{ marginTop: 10, background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)' }}
-          onClick={() => window.open(loginPageUrl, '_blank')}
-        >
-          Sign In
-        </Button>
+       <Login />
       ) : (
-        <div>Your authenticated view here</div>
+<div id="chat-window-container" style={{ position: 'fixed', right: '0', top: '0', width: '300px', height: '100vh' }}>
+  <ChatWindow />
+</div>
+
       )}
     </div>
   );
+
 }
 
 export default MainComponent;

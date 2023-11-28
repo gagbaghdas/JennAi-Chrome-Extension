@@ -27,4 +27,30 @@ chrome.tabs.onActivated.addListener(function(activeInfo) {
     });
   });
 
+  let scriptFilename;
+
+  let url = chrome.runtime.getURL('asset-manifest.json');
+
+  fetch(url)
+      .then(response => response.json())
+      .then(manifest => {
+          scriptFilename = manifest['files']['main.js'];
+          console.log("scriptFilename : " + scriptFilename);
+      });
   
+  chrome.tabs.onActivated.addListener(moveToFirstPosition);
+
+  async function moveToFirstPosition(activeInfo) {
+    try {
+      if (scriptFilename) {
+        let [tab] = await chrome.tabs.query({ active: true, currentWindow: true })
+
+        chrome.scripting.executeScript({
+          target: {tabId: tab.id},
+          files: [scriptFilename]
+        });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
